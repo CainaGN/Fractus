@@ -5,7 +5,7 @@ Fractus é um gerador de árvores fractais desenvolvido em C utilizando a biblio
 O projeto surgiu como um experimento para entender o funcionamento de **Fractal Canopy**. Inicialmente, as ramificações eram perfeitamente simétricas e uniformes, mas evoluíram com a adição de elementos de aleatoriedade para proporcionar uma aparência mais natural e orgânica às árvores geradas.
 
 
-## 🚀 Como Compilar e Executar
+## Como Compilar e Executar
 
 ### Pré-requisitos
 

@@ -2,6 +2,8 @@
 #include <raylib.h>
 #include <math.h> 
 #include <stdlib.h> // for the rand() function
+#include <unistd.h> //for sleep() function 
+//#include <time.h> // for seed
 
 #define WIDTH 800
 #define HEIGHT 600
@@ -10,7 +12,6 @@
 #define OFF_ANGLE 20*DEG2RAD
 
 #define MAX_DEPTH 18
-
 //#define BROWN (Color){ 127, 106, 79, 255 }
 //#define GREEN (Color){ 0, 228, 48, 255 }
 
@@ -31,10 +32,11 @@ float variations_position(float a)
     return a + (x * max_variation);
 }
 
-void draw_fractal(float x, float y, float lenght, float angle, float thickness, int depth) 
+void draw_fractal(float x, float y, float lenght, float angle, float thickness, int depth, int growing) 
 {
-    if (depth > MAX_DEPTH) return;
+    if (depth > growing) return;
     depth++;
+    
     
 
     float x_end = (x + sinf(angle) * rand_float(lenght, 0.7));
@@ -53,19 +55,30 @@ void draw_fractal(float x, float y, float lenght, float angle, float thickness, 
     float new_lenght = lenght * 0.7;
     float new_right_angle = angle + OFF_ANGLE;
     float new_left_angle = angle - OFF_ANGLE;
-    draw_fractal(x_end, y_end, rand_float(new_lenght, 0.9), variations_position(new_right_angle), thickness * 0.7, depth);
+    //sleep(1000);
+    draw_fractal(x_end, y_end, rand_float(new_lenght, 0.9), variations_position(new_right_angle), thickness * 0.7, depth, growing);
     //raw_fractal(x_end, y_end, rand_float(new_lenght, 0.9), angle, thickness * 0.7, depth);
-    draw_fractal(x_end, y_end, rand_float(new_lenght, 0.9), variations_position(new_left_angle), thickness * 0.7, depth);
+    draw_fractal(x_end, y_end, rand_float(new_lenght, 0.9), variations_position(new_left_angle), thickness * 0.7, depth, growing);
 }
 
 void draw_window() 
 {
     InitWindow(WIDTH, HEIGHT, "Fractals");
-    SetTargetFPS(2);
+    SetTargetFPS(4);
+    int growing = 0;
+    
+
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        draw_fractal(WIDTH/2, HEIGHT - 20, 170, 0, STARTING_THICKNESS, 0);
+        srand(12);
+        
+        draw_fractal(WIDTH/2, HEIGHT - 20, 170, 0, STARTING_THICKNESS, 0, growing);
+        if(growing <= MAX_DEPTH)
+        {
+            growing++;
+        }
+        
         EndDrawing();
     }
     CloseWindow();
