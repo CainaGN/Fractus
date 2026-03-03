@@ -9,7 +9,10 @@
 #define STARTING_THICKNESS 26
 #define OFF_ANGLE 20*DEG2RAD
 
-#define MAX_DEPTH 10
+#define MAX_DEPTH 18
+
+//#define BROWN (Color){ 127, 106, 79, 255 }
+//#define GREEN (Color){ 0, 228, 48, 255 }
 
 float rand_float(float x, float percentage)
 {
@@ -33,25 +36,25 @@ void draw_fractal(float x, float y, float lenght, float angle, float thickness, 
     if (depth > MAX_DEPTH) return;
     depth++;
     
-    //float fator = rand_float(lenght, 0.8);
-
-    
 
     float x_end = (x + sinf(angle) * rand_float(lenght, 0.7));
     float y_end = (y - cosf(angle) * rand_float(lenght, 0.6));
     Vector2 end = {x_end, y_end};
     Vector2 start = {x, y};
 
-   // printf("fator: %f\n x: %f\n y: %f\n\n", fator, x_end, y_end);
 
- 
-
-
-    DrawLineEx(start, end, thickness, BLACK);
+    if(depth > 8)
+    {
+        DrawLineEx(start, end, thickness, GREEN);
+    }else
+    {
+        DrawLineEx(start, end, thickness, BROWN);
+    }
     float new_lenght = lenght * 0.7;
     float new_right_angle = angle + OFF_ANGLE;
     float new_left_angle = angle - OFF_ANGLE;
     draw_fractal(x_end, y_end, rand_float(new_lenght, 0.9), variations_position(new_right_angle), thickness * 0.7, depth);
+    //raw_fractal(x_end, y_end, rand_float(new_lenght, 0.9), angle, thickness * 0.7, depth);
     draw_fractal(x_end, y_end, rand_float(new_lenght, 0.9), variations_position(new_left_angle), thickness * 0.7, depth);
 }
 
