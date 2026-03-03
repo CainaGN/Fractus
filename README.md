@@ -4,12 +4,6 @@ Fractus é um gerador de árvores fractais desenvolvido em C utilizando a biblio
 
 O projeto surgiu como um experimento para entender o funcionamento de **Fractal Canopy**. Inicialmente, as ramificações eram perfeitamente simétricas e uniformes, mas evoluíram com a adição de elementos de aleatoriedade para proporcionar uma aparência mais natural e orgânica às árvores geradas.
 
-## ✨ Características
-
-- Geração de árvores fractais em tempo real.
-- Variações aleatórias no comprimento e ângulo das ramificações.
-- Transição de cores (marrom para os galhos e verde para as folhas/extremidades).
-- Espessura dinâmica baseada na profundidade da recursão.
 
 ## 🚀 Como Compilar e Executar
 
@@ -33,12 +27,3 @@ Após a compilação, execute o programa:
 ./Fractus
 ```
 
-## 🛠️ Tecnologias Utilizadas
-
-- **Linguagem C**
-- **Raylib**: Para renderização gráfica e gerenciamento de janela.
-- **Matemática**: Uso de funções trigonométricas para o cálculo das ramificações.
-
----
-
-*Desenvolvido como um estudo sobre fractais e recursividade.*
