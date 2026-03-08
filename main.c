@@ -2,8 +2,7 @@
 #include <raylib.h>
 #include <math.h> 
 #include <stdlib.h> // for the rand() function
-#include <unistd.h> //for sleep() function 
-//#include <time.h> // for seed
+
 
 #define WIDTH 1024
 #define HEIGHT 720
@@ -11,9 +10,9 @@
 #define STARTING_THICKNESS 30
 #define OFF_ANGLE 20*DEG2RAD
 
-#define MAX_DEPTH 16
+#define MAX_DEPTH 15
 
-#define BACKGROUND (Color){13, 17, 23, 0} // background color of Github
+#define BACKGROUND (Color){13, 17, 23, 255} // background color of Github
 
 
 float rand_float(float x, float percentage)
@@ -75,9 +74,9 @@ void draw_window()
     
 
     while (!WindowShouldClose()) {
+        
         BeginDrawing();
         ClearBackground(BACKGROUND);
-        
         
         draw_fractal(WIDTH/2, HEIGHT - 20, 200, 0, STARTING_THICKNESS, 0, growing, 1);
         if(growing <= MAX_DEPTH)
@@ -85,12 +84,14 @@ void draw_window()
             growing++;
         }else
         {
+            TakeScreenshot(TextFormat("screenshots/frame_%02i.png", growing));
+            EndDrawing();
             return;
         }
         
-        
         EndDrawing();
         TakeScreenshot(TextFormat("screenshots/frame_%02i.png", growing));
+        
     }
     
     CloseWindow();
@@ -98,8 +99,9 @@ void draw_window()
 
 int main() 
 {
+    system("mkdir -p screenshots"); //the -p argument tells the system "create that if it doesnt exists, if it does, just ignore me"
     draw_window();
-    system("ffmpeg -framerate 4 -i screenshots/frame_%02d.png -lavfi 'palettegen [p]; [0:v][p] paletteuse' fractal_growth.gif");
+    system("ffmpeg -framerate 4 -i screenshots/frame_%02d.png -lavfi 'palettegen [p]; [0:v][p] paletteuse' fractal_growth.gif -y");
     
     return 0;
 }

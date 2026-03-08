@@ -5,11 +5,15 @@ Fractus é um gerador de árvores fractais desenvolvido em C utilizando a biblio
 O projeto surgiu como um experimento para entender o funcionamento de **Fractal Canopy**. Inicialmente, as ramificações eram perfeitamente simétricas e uniformes, mas evoluíram com a adição de elementos de aleatoriedade para proporcionar uma aparência mais natural e orgânica às árvores geradas.
 
 
+O Gif abaixo foi gerado pelo programa. mostrando o crescimento da árvore a cada iteração:
+![](fractal_growth.gif)
+
+
 ## Como Compilar e Executar
 
 ### Pré-requisitos
 
-Certifique-se de ter o `gcc` e a biblioteca `raylib` instalados em seu sistema Linux.
+Certifique-se de ter o `gcc` e a biblioteca `raylib` instalados em seu sistema Linux. Além disso, para gerar o GIF com o crescimento da árvore, é necessário instalar a biblioteca `ffmpeg`. 
 
 ### Compilação
 
