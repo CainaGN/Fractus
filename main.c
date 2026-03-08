@@ -11,9 +11,10 @@
 #define STARTING_THICKNESS 30
 #define OFF_ANGLE 20*DEG2RAD
 
-#define MAX_DEPTH 18
+#define MAX_DEPTH 16
 
 #define BACKGROUND (Color){13, 17, 23, 0} // background color of Github
+
 
 float rand_float(float x, float percentage)
 {
@@ -69,7 +70,7 @@ void draw_fractal(float x, float y, float lenght, float angle, float thickness, 
 void draw_window() 
 {
     InitWindow(WIDTH, HEIGHT, "Fractals");
-    SetTargetFPS(2);
+    SetTargetFPS(4);
     int growing = 0;
     
 
@@ -77,20 +78,28 @@ void draw_window()
         BeginDrawing();
         ClearBackground(BACKGROUND);
         
+        
         draw_fractal(WIDTH/2, HEIGHT - 20, 200, 0, STARTING_THICKNESS, 0, growing, 1);
         if(growing <= MAX_DEPTH)
         {
             growing++;
+        }else
+        {
+            return;
         }
-        TakeScreenshot(TextFormat("screenshots/frame_%02i.png", growing));
-
+        
+        
         EndDrawing();
+        TakeScreenshot(TextFormat("screenshots/frame_%02i.png", growing));
     }
+    
     CloseWindow();
 }
 
 int main() 
 {
     draw_window();
+    system("ffmpeg -framerate 4 -i screenshots/frame_%02d.png -lavfi 'palettegen [p]; [0:v][p] paletteuse' fractal_growth.gif");
+    
     return 0;
 }
